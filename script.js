@@ -13,10 +13,12 @@ function handleFile(event) {
     const sheet = workbook.Sheets[workbook.SheetNames[0]];
     const values = XLSX.utils.sheet_to_json(sheet, { header: 1 }).flat();
 
+    const chunkSize = parseInt(document.getElementById('chunkSize').value, 10) || 17;
+
     transformedData = [];
 
-    for (let i = 0; i < values.length; i += 17) {
-      transformedData.push(values.slice(i, i + 17));
+    for (let i = 0; i < values.length; i += chunkSize) {
+      transformedData.push(values.slice(i, i + chunkSize));
     }
 
     alert("✅ File processed! Click 'Download Transformed Excel' to get your file.");
